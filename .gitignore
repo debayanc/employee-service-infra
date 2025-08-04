@@ -7,6 +7,7 @@ terraform.tfstate.backup
 *.tfplan.*
 
 # Variable files
+terraform.tfvars
 *.auto.tfvars
 *.auto.tfvars.json
 
