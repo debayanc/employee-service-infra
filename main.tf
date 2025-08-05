@@ -1,5 +1,5 @@
-data "aws_availability_zones" "available" {
-  state = "available"
+locals {
+  availability_zones = ["ap-southeast-2a", "ap-southeast-2b"]
 }
 
 # VPC
@@ -27,7 +27,7 @@ resource "aws_subnet" "private" {
   count             = 2
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.${count.index + 1}.0/24"
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = local.availability_zones[count.index]
 
   tags = {
     Name                              = "${var.cluster_name}-private-${count.index + 1}"
@@ -39,7 +39,7 @@ resource "aws_subnet" "public" {
   count                   = 2
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.${count.index + 101}.0/24"
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  availability_zone       = local.availability_zones[count.index]
   map_public_ip_on_launch = true
 
   tags = {
