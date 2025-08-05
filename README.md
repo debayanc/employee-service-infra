@@ -7,7 +7,7 @@ Complete EKS setup with GitOps (ArgoCD) and Monitoring (Grafana + Prometheus).
 - **EKS Cluster** with cost-optimized t3.medium nodes
 - **VPC** with public/private subnets and single NAT Gateway
 - **ArgoCD** for GitOps deployment
-- **Grafana + Prometheus** for monitoring and observability
+- **Grafana + Prometheus + Loki** for monitoring and log aggregation
 - **EBS CSI Driver** for persistent storage
 
 ## Deployment
