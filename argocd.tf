@@ -36,6 +36,31 @@ resource "helm_release" "argocd_apps" {
             repoURL        = "https://github.com/debayanc/employee-service.git"
             targetRevision = "HEAD"
             path           = "helm/employee-service"
+            helm = {
+              valueFiles = ["values-aws.yaml"]
+            }
+          }
+          destination = {
+            server    = "https://kubernetes.default.svc"
+            namespace = "employee-dev"
+          }
+          syncPolicy = {
+            automated = {
+              prune    = true
+              selfHeal = true
+            }
+            syncOptions = [
+              "CreateNamespace=true"
+            ]
+          }
+        }
+        "employee-frontend" = {
+          namespace = "argocd"
+          project   = "default"
+          source = {
+            repoURL        = "https://github.com/debayanc/employee-frontend.git"
+            targetRevision = "HEAD"
+            path           = "helm/employee-frontend"
           }
           destination = {
             server    = "https://kubernetes.default.svc"
